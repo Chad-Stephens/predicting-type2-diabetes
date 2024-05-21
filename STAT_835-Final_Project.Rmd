@@ -48,17 +48,34 @@ aware of important risks factors to possibly prevent a Type 2 Diabetes diagnosis
 
 ### A. Background
 
-In 2017, approximately 462 million people were affected by Type 2 Diabetes globally (Khan et al. 2020). Diabetes is a chronic disease that must be managed by various methods to control blood glucose levels. These methods can vary depending if a person has Type 1 or Type 2 Diabetes. If blood glucose levels are not properly managed, a variety of issues could arise such as kidney failure, neuropathy and amputations (Sanal et al. 2011). Given that Type 2 Diabetes, especially if not managed properly, can cause a variety of health risks, it's extremely important to identify factors that could possibly cause it. Identifying these factors could help many individuals to be aware on what to look out for and even possibly get ahead of a Type 2 Diabetes diagnosis.
+In 2017, approximately 462 million people were affected by Type 2 Diabetes globally (Khan et al. 2020). Diabetes is a chronic disease that must be managed by
+various methods to control blood glucose levels. These methods can vary depending if a person has Type 1 or Type 2 Diabetes. If blood glucose levels are not
+properly managed, a variety of issues could arise such as kidney failure, neuropathy and amputations (Sanal et al. 2011). Given that Type 2 Diabetes, especially
+if not managed properly, can cause a variety of health risks, it's extremely important to identify factors that could possibly cause it. Identifying these factors
+could help many individuals to be aware on what to look out for and even possibly get ahead of a Type 2 Diabetes diagnosis.
 
 ### B. Aim
 
-The Purpose of this explanatory study is to determine what predictor variable should be used to effectively predict the probability of whether an individual will have Type 2 Diabetes. Data were obtained from the National Institute of Diabetes and Digestive and Kidney Diseases. Additionally, all patients in the data are females at least 21 years old of the Pima Indian heritage. There were 768 observations taken of patients and the following information were obtained for: number of pregnancies, plasma glucose concentration (mg/dL), blood pressure (mm Hg), skin fold thickness of triceps (mm), serum insulin (mu U/ml), BMI (kg/m^2^), Diabetes Pedigree Function (scores the likelihood of diabetes based on family history), and age (years). The response variable is the outcome about whether the patient has Type 2 Diabetes and it's treated as a binary variable (i.e. 0 = negative for diabetes and 1 = positive). A multiple logistic regression model is used where outcome will be the response variable and the other variables were possible predictors. Researchers have investigated various associations between predictors and the response variable and determined possible outcomes by using similar machine learning methods (Rajendra & Latifi 2021; Joshi & Dhakal 2021).
+The Purpose of this explanatory study is to determine what predictor variable should be used to effectively predict the probability of whether an individual will
+have Type 2 Diabetes. Data were obtained from the National Institute of Diabetes and Digestive and Kidney Diseases. Additionally, all patients in the data are
+females at least 21 years old of the Pima Indian heritage. There were 768 observations taken of patients and the following information were obtained for: number
+of pregnancies, plasma glucose concentration (mg/dL), blood pressure (mm Hg), skin fold thickness of triceps (mm), serum insulin (mu U/ml), BMI (kg/m^2^),
+Diabetes Pedigree Function (scores the likelihood of diabetes based on family history), and age (years). The response variable is the outcome about whether the
+patient has Type 2 Diabetes and it's treated as a binary variable (i.e. 0 = negative for diabetes and 1 = positive). A multiple logistic regression model is used
+where outcome will be the response variable and the other variables were possible predictors. Researchers have investigated various associations between
+predictors and the response variable and determined possible outcomes by using similar machine learning methods (Rajendra & Latifi 2021; Joshi & Dhakal 2021).
 
 ## III. Methods
 
 ### A. Statistical Software and Analysis
 
-All statistical analysis and figures produced were conducted in RStudio version 4.3.0 (released on 4/21/23). Unless otherwise noted, all inferences conducted are based on $\alpha$ = 0.05. Model assumptions of binary logistic regression were all considered and accounted for in both the full (preliminary) and reduced (final) models. The final model is selected by an Akaike's information criteria (AIC) stepwise selection algorithm, considering the backward direction (Agresti 2019). A 70:30 (i.e. 70% for training and 30% for testing set) ratio were used for Cross-validation (Rajendra & Latifi 2021). Model performance and predictive ability of both the preliminary and final model were compared using a Likelihood-Ratio Test and a receiver operating characteristic (ROC) curve, respectively. It should be noted that many of the covariates had missing values, which were indexed using 0. These placeholders likely occurred because not every patient had all tests recorded. To improve model performance, the missing values were replaced with the median of the covariates that had the issue (Joshi & Dhakal 2021).
+All statistical analysis and figures produced were conducted in RStudio version 4.3.0 (released on 4/21/23). Unless otherwise noted, all inferences conducted are
+based on $\alpha$ = 0.05. Model assumptions of binary logistic regression were all considered and accounted for in both the full (preliminary) and reduced (final)
+models. The final model is selected by an Akaike's information criteria (AIC) stepwise selection algorithm, considering the backward direction (Agresti 2019). A
+70:30 (i.e. 70% for training and 30% for testing set) ratio were used for Cross-validation (Rajendra & Latifi 2021). Model performance and predictive ability of
+both the preliminary and final model were compared using a Likelihood-Ratio Test and a receiver operating characteristic (ROC) curve, respectively. It should be
+noted that many of the covariates had missing values, which were indexed using 0. These placeholders likely occurred because not every patient had all tests
+recorded. To improve model performance, the missing values were replaced with the median of the covariates that had the issue (Joshi & Dhakal 2021).
 
 ### B. Preliminary and Final Model
 
