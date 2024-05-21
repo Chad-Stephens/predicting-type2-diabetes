@@ -1,0 +1,115 @@
+library(readr)
+library(car)
+library(MASS)
+library(leaps)
+library(bestglm)
+library(tidyverse)
+library(lmtest)
+library(pROC)
+library(ggplot2)
+library(caret)
+library(dplyr)
+
+diabetes <- read_csv("C:/Users/steph/Downloads/diabetes.csv")
+
+# Replace the missing values (i.e. data points equal to 0 with the median)
+diabetes['Glucose'][diabetes['Glucose'] == 0] <- 117
+diabetes['BloodPressure'][diabetes['BloodPressure'] == 0] <- 72
+diabetes['SkinThickness'][diabetes['SkinThickness'] == 0] <- 23
+diabetes['Insulin'][diabetes['Insulin'] == 0] <- 30.5
+diabetes['BMI'][diabetes['BMI'] == 0] <- 32
+diabetes$Outcome <- as.factor(diabetes$Outcome)
+
+model_full <- glm(Outcome ~ ., family=binomial(link=logit), data=diabetes) 
+summary(model_full)
+
+vif(model_full)
+
+cooks_distance <- cooks.distance(model_full)
+
+n <- nrow(diabetes)
+p <- plot(cooks_distance, pch="*", main = "Cooks Distance for Influential Observations",
+          ylab = "Cook's Distance", xlab = "Observations")
+abline(h = 4/n, lty = 2, col = "blue") # add cutoff line
+
+text(x=1:length(cooks_distance)+1, y=cooks_distance, 
+     labels=ifelse(cooks_distance>4/n, 
+                   names(cooks_distance),""), col="blue") 
+
+logodds <- model_full$linear.predictors
+plot(logodds ~ diabetes$Glucose, 
+     main = "Log Odds of Outcome vs Glucose",
+     ylab = "Log Odds", xlab = "Glucose")
+
+plot(logodds ~ diabetes$Insulin, 
+     main = "Log Odds of Outcome vs Insulin",
+     ylab = "Log Odds", xlab = "Insulin")
+
+plot(model_full$fitted.values, residuals(model_full),
+     main = "Fitted vs Residuals", xlab = "Fitted",
+     ylab = "Residuals")
+
+model_reduced <- glm(Outcome ~ Pregnancies + Glucose + 
+                    Insulin + BMI + DiabetesPedigreeFunction,
+                  data = diabetes, family = binomial)
+summary(model_reduced)
+
+vif(model_reduced)
+
+cooks_distance2 <- cooks.distance(model_reduced)
+
+n2 <- nrow(diabetes)
+p2 <- plot(cooks_distance2, pch="*", main = "Cooks Distance for Influential Observations",
+           ylab = "Cook's Distance", xlab = "Observations")
+abline(h = 4/n, lty = 2, col = "blue") # add cutoff line
+
+text(x=1:length(cooks_distance2)+1, y=cooks_distance2, 
+     labels=ifelse(cooks_distance2>4/n2, 
+                   names(cooks_distance2),""), col="blue") 
+
+plot(model_reduced$fitted.values, residuals(model_reduced),
+     main = "Fitted vs Residuals", xlab = "Fitted",
+     ylab = "Residuals")
+
+stepAIC(model_full, direction = "backward") # stepwise backward selection using AIC
+
+lrtest(model_full, model_reduced)
+
+train <- diabetes[1:538,]
+test <- diabetes[539:768,]
+
+model_reduced_train <- glm(Outcome ~ Pregnancies + Glucose + 
+                    Insulin + BMI + DiabetesPedigreeFunction,
+                  data = train, family = binomial); AIC(model_reduced_train)
+
+model_full_train <- glm(Outcome ~ ., data = train, family = binomial); AIC(model_full_train)
+
+predicted <- predict(model_reduced_train, test, type="response")
+
+#define object to plot and calculate AUC
+rocobj <- roc(test$Outcome, predicted)
+auc <- round(auc(test$Outcome, predicted),4)
+
+#create ROC plot
+ggroc(rocobj, color = 'blue', size = 1) + 
+  ggtitle(paste0('ROC Curve', '(AUC = ', auc, ')')) + theme_minimal()
+
+predicted2 <- predict(model_full_train, test, type="response")
+
+#define object to plot and calculate AUC
+rocobj2 <- roc(test$Outcome, predicted2)
+auc2 <- round(auc(test$Outcome, predicted2),4)
+
+#create ROC plot
+ggroc(rocobj2, color = 'blue', size = 1) + 
+  ggtitle(paste0('ROC Curve', '(AUC = ', auc2, ')')) + theme_minimal()
+
+predict(model_reduced_train, data.frame(Pregnancies=2, Glucose=85,
+                                  Insulin=15, BMI=26.5,
+                                  DiabetesPedigreeFunction=0.25),
+        type="response")
+
+predict(model_reduced_train, data.frame(Pregnancies=2, Glucose=180,
+                                  Insulin=15, BMI=33,
+                                  DiabetesPedigreeFunction=0.25),
+        type="response")

@@ -33,23 +33,49 @@ diabetes$Outcome <- as.factor(diabetes$Outcome)
 
 ## I. Abstract
 
-Type 2 diabetes is an extremely common disease worldwide that can lead to a variety of health complications (Sanal et al. 2011). In addition, the prevalence of this disease can have significant economic burdens (Seuring et al. 2015). An understanding of what specific factors to closely monitor could act as a preventative measure against Type 2 Diabetes and allow for relatively accurate predictions to be made. An exploratory study was conducted utilizing a multiple logistic regression model to make predict Type 2 Diabetes in Pima Indian women. The structure of this study was to determine the most influential predictor variables where a reproducible, parsimonious model could be used. The various analyses suggested that the main predictor variables are: number of pregnancies, plasma glucose concentration, serum insulin, BMI, and Diabetes Pedigree Function. Further investigation using a Likelihood-Ratio Test compared the full and reduced model, suggesting that the reduced (i.e. more parsimonious) model should be used (p = 0.4673). The predictive ability (AUC = 0.8732) of the final model performed well, using 0.50 as a baseline (Agresti 2019). Logistic regression appears to be a relatively effective model in making predictions. Given the performance of the proposed final model and having only limited complexity, logistic regression appears to make reasonable predictions that can be reproduced and help individuals be aware of important risks factors to possibly prevent a Type 2 Diabetes diagnosis.   
+Type 2 diabetes is an extremely common disease worldwide that can lead to a variety of health complications (Sanal et al. 2011). In addition, the prevalence of
+this disease can have significant economic burdens (Seuring et al. 2015). An understanding of what specific factors to closely monitor could act as a preventative
+measure against Type 2 Diabetes and allow for relatively accurate predictions to be made. An exploratory study was conducted utilizing a multiple logistic
+regression model to make predict Type 2 Diabetes in Pima Indian women. The structure of this study was to determine the most influential predictor variables where
+a reproducible, parsimonious model could be used. The various analyses suggested that the main predictor variables are: number of pregnancies, plasma glucose
+concentration, serum insulin, BMI, and Diabetes Pedigree Function. Further investigation using a Likelihood-Ratio Test compared the full and reduced model,
+suggesting that the reduced (i.e. more parsimonious) model should be used (p = 0.4673). The predictive ability (AUC = 0.8732) of the final model performed well,
+using 0.50 as a baseline (Agresti 2019). Logistic regression appears to be a relatively effective model in making predictions. Given the performance of the
+proposed final model and having only limited complexity, logistic regression appears to make reasonable predictions that can be reproduced and help individuals be
+aware of important risks factors to possibly prevent a Type 2 Diabetes diagnosis.   
 
 ## II. Introduction
 
 ### A. Background
 
-In 2017, approximately 462 million people were affected by Type 2 Diabetes globally (Khan et al. 2020). Diabetes is a chronic disease that must be managed by various methods to control blood glucose levels. These methods can vary depending if a person has Type 1 or Type 2 Diabetes. If blood glucose levels are not properly managed, a variety of issues could arise such as kidney failure, neuropathy and amputations (Sanal et al. 2011). Given that Type 2 Diabetes, especially if not managed properly, can cause a variety of health risks, it's extremely important to identify factors that could possibly cause it. Identifying these factors could help many individuals to be aware on what to look out for and even possibly get ahead of a Type 2 Diabetes diagnosis.
+In 2017, approximately 462 million people were affected by Type 2 Diabetes globally (Khan et al. 2020). Diabetes is a chronic disease that must be managed by
+various methods to control blood glucose levels. These methods can vary depending if a person has Type 1 or Type 2 Diabetes. If blood glucose levels are not
+properly managed, a variety of issues could arise such as kidney failure, neuropathy and amputations (Sanal et al. 2011). Given that Type 2 Diabetes, especially
+if not managed properly, can cause a variety of health risks, it's extremely important to identify factors that could possibly cause it. Identifying these factors
+could help many individuals to be aware on what to look out for and even possibly get ahead of a Type 2 Diabetes diagnosis.
 
 ### B. Aim
 
-The Purpose of this explanatory study is to determine what predictor variable should be used to effectively predict the probability of whether an individual will have Type 2 Diabetes. Data were obtained from the National Institute of Diabetes and Digestive and Kidney Diseases. Additionally, all patients in the data are females at least 21 years old of the Pima Indian heritage. There were 768 observations taken of patients and the following information were obtained for: number of pregnancies, plasma glucose concentration (mg/dL), blood pressure (mm Hg), skin fold thickness of triceps (mm), serum insulin (mu U/ml), BMI (kg/m^2^), Diabetes Pedigree Function (scores the likelihood of diabetes based on family history), and age (years). The response variable is the outcome about whether the patient has Type 2 Diabetes and it's treated as a binary variable (i.e. 0 = negative for diabetes and 1 = positive). A multiple logistic regression model is used where outcome will be the response variable and the other variables were possible predictors. Researchers have investigated various associations between predictors and the response variable and determined possible outcomes by using similar machine learning methods (Rajendra & Latifi 2021; Joshi & Dhakal 2021).
+The Purpose of this explanatory study is to determine what predictor variable should be used to effectively predict the probability of whether an individual will
+have Type 2 Diabetes. Data were obtained from the National Institute of Diabetes and Digestive and Kidney Diseases. Additionally, all patients in the data are
+females at least 21 years old of the Pima Indian heritage. There were 768 observations taken of patients and the following information were obtained for: number
+of pregnancies, plasma glucose concentration (mg/dL), blood pressure (mm Hg), skin fold thickness of triceps (mm), serum insulin (mu U/ml), BMI (kg/m^2^),
+Diabetes Pedigree Function (scores the likelihood of diabetes based on family history), and age (years). The response variable is the outcome about whether the
+patient has Type 2 Diabetes and it's treated as a binary variable (i.e. 0 = negative for diabetes and 1 = positive). A multiple logistic regression model is used
+where outcome will be the response variable and the other variables were possible predictors. Researchers have investigated various associations between
+predictors and the response variable and determined possible outcomes by using similar machine learning methods (Rajendra & Latifi 2021; Joshi & Dhakal 2021).
 
 ## III. Methods
 
 ### A. Statistical Software and Analysis
 
-All statistical analysis and figures produced were conducted in RStudio version 4.3.0 (released on 4/21/23). Unless otherwise noted, all inferences conducted are based on $\alpha$ = 0.05. Model assumptions of binary logistic regression were all considered and accounted for in both the full (preliminary) and reduced (final) models. The final model is selected by an Akaike's information criteria (AIC) stepwise selection algorithm, considering the backward direction (Agresti 2019). A 70:30 (i.e. 70% for training and 30% for testing set) ratio were used for Cross-validation (Rajendra & Latifi 2021). Model performance and predictive ability of both the preliminary and final model were compared using a Likelihood-Ratio Test and a receiver operating characteristic (ROC) curve, respectively. It should be noted that many of the covariates had missing values, which were indexed using 0. These placeholders likely occurred because not every patient had all tests recorded. To improve model performance, the missing values were replaced with the median of the covariates that had the issue (Joshi & Dhakal 2021).
+All statistical analysis and figures produced were conducted in RStudio version 4.3.0 (released on 4/21/23). Unless otherwise noted, all inferences conducted are
+based on $\alpha$ = 0.05. Model assumptions of binary logistic regression were all considered and accounted for in both the full (preliminary) and reduced (final)
+models. The final model is selected by an Akaike's information criteria (AIC) stepwise selection algorithm, considering the backward direction (Agresti 2019). A
+70:30 (i.e. 70% for training and 30% for testing set) ratio were used for Cross-validation (Rajendra & Latifi 2021). Model performance and predictive ability of
+both the preliminary and final model were compared using a Likelihood-Ratio Test and a receiver operating characteristic (ROC) curve, respectively. It should be
+noted that many of the covariates had missing values, which were indexed using 0. These placeholders likely occurred because not every patient had all tests
+recorded. To improve model performance, the missing values were replaced with the median of the covariates that had the issue (Joshi & Dhakal 2021).
 
 ### B. Preliminary and Final Model
 
@@ -73,25 +99,53 @@ $X_{i8} =$ age for the $i^{th}$ patient.
 
 $\text{logit}(\pi) = \log\left(\frac{\pi}{1-\pi}\right) = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \ldots + \beta_8 x_{i8}$
 
-After preliminary analyses and model selection techniques, the preliminary model was reduced (i.e. predictor variables were removed). The final model did not include blood pressure, skin fold thickness of triceps, and age.
+After preliminary analyses and model selection techniques, the preliminary model was reduced (i.e. predictor variables were removed). The final model did not
+include blood pressure, skin fold thickness of triceps, and age.
 
 $\text{logit}(\pi) = \log\left(\frac{\pi}{1-\pi}\right) = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \beta_5 x_{i5} + \beta_6 x_{i6} + \beta_7 x_{i7}$
 
 ### C. Preliminary Analysis
 
-The following six assumptions were checked for both the preliminary and final model: the response variable is binary, no evidence of multicollinearity, no substantial outliers, an linear relationship exists between the predictor variables and the logit of the response variable, the sample size is sufficiently large, and the observations are independent. All six of the assumptions were met for both models, albeit with a few noteworthy future considerations. Refer to the Appendix section for more details.
+The following six assumptions were checked for both the preliminary and final model: the response variable is binary, no evidence of multicollinearity, no
+substantial outliers, an linear relationship exists between the predictor variables and the logit of the response variable, the sample size is sufficiently large,
+and the observations are independent. All six of the assumptions were met for both models, albeit with a few noteworthy future considerations. Refer to the
+Appendix section for more details.
 
 ## IV. Results
 
-Based on the AIC stepwise backward selection algorithm, the reduced model yielded a lower value (AIC = 725.43) compared to the full model (AIC = 728.88). This suggests that the reduced model should be used. The Likelihood-Ratio test came to the same conclusion that the reduced model should be selected as the final model (p = 0.4673). This suggests that the number of pregnancies, plasma glucose concentration, serum insulin, BMI, and Diabetes Pedigree Function are significant to the model. In addition, glucose (r = 0.846) and BMI (r = 0.578) appear to have the greatest influence on the model. The area under the curve (AUC) yielded from a ROC curve were used to compare the predictive ability of the preliminary (AUC = 0.8748) and final model (AUC = 0.8732) based on cross-validation where data were split into a training and testing set. Using the concordant index baseline of 0.50 (i.e. random guessing), both models performed well (Agresti 2019). Given that the AUC values for the two models are similar, however, the more parsimonious model was used to make predictions. For example, a relatively healthy individual had approximately 4.6% probability of getting Type 2 Diabetes. For a relatively unhealthy individual, however, they had a probability of approximately 74%. For more information, refer to the Appendix section.
+Based on the AIC stepwise backward selection algorithm, the reduced model yielded a lower value (AIC = 725.43) compared to the full model (AIC = 728.88). This
+suggests that the reduced model should be used. The Likelihood-Ratio test came to the same conclusion that the reduced model should be selected as the final model
+(p = 0.4673). This suggests that the number of pregnancies, plasma glucose concentration, serum insulin, BMI, and Diabetes Pedigree Function are significant to
+the model. In addition, glucose (r = 0.846) and BMI (r = 0.578) appear to have the greatest influence on the model. The area under the curve (AUC) yielded from a
+ROC curve were used to compare the predictive ability of the preliminary (AUC = 0.8748) and final model (AUC = 0.8732) based on cross-validation where data were
+split into a training and testing set. Using the concordant index baseline of 0.50 (i.e. random guessing), both models performed well (Agresti 2019). Given that
+the AUC values for the two models are similar, however, the more parsimonious model was used to make predictions. For example, a relatively healthy individual had
+approximately 4.6% probability of getting Type 2 Diabetes. For a relatively unhealthy individual, however, they had a probability of approximately 74%. For more
+information, refer to the Appendix section.
 
 ## V. Discussion
 
-The original aim of this explanatory study was to find a parsimonious model that could predict the probability of an individual having Type 2 Diabetes. The final model introduced appears to perform well and could be beneficial in assessing what factors to look out for (i.e. having an understanding of the main contributors towards Type 2 Diabetes to help possible preventative measures). However, there are a few limitations regarding the Pima data set and the final model that should be considered. Noted in the Methods section, many of the covariates had missing values. Joshi & Dhakal (2021) suggested replacing these values with the median could improve model performance. However, there were many instances, especially with the insulin variable, of missing values (Figure 3). This may have introduced a slight bias, possibly influencing the model fit. Other data cleaning methods could be considered to possibly alleviate this issue. Another possible issue with the data set is that cook's distance was used to determine possible outliers using 4/n, where n is the sample size, as a baseline. However, the rule of thumb where anything above 1 was considered an outlier was used, so no observations were removed. Removing potential outliers, such as observation 229 (Figures 1 and 5) could improve the model. An possible limitation with the final model is that possible interaction effects were not thoroughly examined as it was outside the scope of this study. Introducing possible interactions could improve the model's performance and should be examined in future studies. Finally, the simple nature of this study could pose as a limitation towards the model's predictive ability regarding the true theoretical outcome. More specially, this study was designed as an explanatory process, where the goal was to determine to find the most parsimonious model. This means that statistical significance were weighted more compared to practical significance. While the practical considerations (i.e. removing less variables) would make the model more complex, it could, however, be a better representation of the true outcome.
+The original aim of this explanatory study was to find a parsimonious model that could predict the probability of an individual having Type 2 Diabetes. The final
+model introduced appears to perform well and could be beneficial in assessing what factors to look out for (i.e. having an understanding of the main contributors
+towards Type 2 Diabetes to help possible preventative measures). However, there are a few limitations regarding the Pima data set and the final model that should
+be considered. Noted in the Methods section, many of the covariates had missing values. Joshi & Dhakal (2021) suggested replacing these values with the median
+could improve model performance. However, there were many instances, especially with the insulin variable, of missing values (Figure 3). This may have introduced
+a slight bias, possibly influencing the model fit. Other data cleaning methods could be considered to possibly alleviate this issue. Another possible issue with
+the data set is that cook's distance was used to determine possible outliers using 4/n, where n is the sample size, as a baseline. However, the rule of thumb
+where anything above 1 was considered an outlier was used, so no observations were removed. Removing potential outliers, such as observation 229 (Figures 1 and 5)
+could improve the model. An possible limitation with the final model is that possible interaction effects were not thoroughly examined as it was outside the scope
+of this study. Introducing possible interactions could improve the model's performance and should be examined in future studies. Finally, the simple nature of
+this study could pose as a limitation towards the model's predictive ability regarding the true theoretical outcome. More specially, this study was designed as an
+explanatory process, where the goal was to determine to find the most parsimonious model. This means that statistical significance were weighted more compared to
+practical significance. While the practical considerations (i.e. removing less variables) would make the model more complex, it could, however, be a better
+representation of the true outcome.
 
 ## VI. Conclusion
 
-Despite the limitations mentioned in the previous section, the proposed final model appears to fit the data well and has evidence of making effective predictions. The overall goal of this study was met and the findings open up other possible studies to further its initiative. Additionally, the results suggest that if the five predictors in the final model can be controlled by taking the necessary steps, it could lower the risk of getting Type 2 Diabetes. This could lead to a decrease in the number of Type 2 Diabetes cases per year globally, so it's imperative that further research be conducted.
+Despite the limitations mentioned in the previous section, the proposed final model appears to fit the data well and has evidence of making effective predictions.
+The overall goal of this study was met and the findings open up other possible studies to further its initiative. Additionally, the results suggest that if the
+five predictors in the final model can be controlled by taking the necessary steps, it could lower the risk of getting Type 2 Diabetes. This could lead to a
+decrease in the number of Type 2 Diabetes cases per year globally, so it's imperative that further research be conducted.
 
 ## VII. References
 
@@ -118,7 +172,8 @@ This assumption has been met as the response variable only has two possible outc
 vif(model_full)
 ```
 
-Based on the rule of thumb of VIF = 5, Table 1 suggests that multicollinearity does not exist, so other remedial measures such as a Principal Component Analysis (PCA) are not necessary.
+Based on the rule of thumb of VIF = 5, Table 1 suggests that multicollinearity does not exist, so other remedial measures such as a Principal Component Analysis
+(PCA) are not necessary.
 
 #### Assumption 3: No Substantial Outliers
 
@@ -153,7 +208,8 @@ plot(logodds ~ diabetes$Insulin,
      ylab = "Log Odds", xlab = "Insulin")
 ```
 
-Figure 2 shows a linear relationship between the log odds of the response variable and glucose. Figure 3 is worth pointing out as there's a vertical line that all have the same value for glucose. This is due to replacing the missing values with the median.
+Figure 2 shows a linear relationship between the log odds of the response variable and glucose. Figure 3 is worth pointing out as there's a vertical line that all
+have the same value for glucose. This is due to replacing the missing values with the median.
 
 #### Assumption 5: Sample Size is Sufficiently Large
 
@@ -167,7 +223,8 @@ plot(model_full$fitted.values, residuals(model_full),
      ylab = "Residuals")
 ```
 
-Figure 4 shows that the observations are independent of each other. The two separate lines are to be expected given that the bottom represents negative for Type 2 Diabetes (i.e. 0) and the top is positive (i.e. 1).
+Figure 4 shows that the observations are independent of each other. The two separate lines are to be expected given that the bottom represents negative for Type 2
+Diabetes (i.e. 0) and the top is positive (i.e. 1).
 
 ### Reduced Model Assumptions
 
@@ -236,21 +293,26 @@ Figure 6 shows that the assumption of independent observations has been met.
 stepAIC(model_full, direction = "backward") # stepwise backward selection using AIC
 ```
 
-Table 3 suggests that the model containing pregnancies, glucose, insulin, BMI, Diabetes Pedigree Function should be used based on its AIC value of 725.43. Given that this AIC value is similar to the full model's (AIC = 728.88), a Likelihood-Ratio Test was conducted to investigate whether there is a statistical differnce between the two models.
+Table 3 suggests that the model containing pregnancies, glucose, insulin, BMI, Diabetes Pedigree Function should be used based on its AIC value of 725.43. Given
+that this AIC value is similar to the full model's (AIC = 728.88), a Likelihood-Ratio Test was conducted to investigate whether there is a statistical differnce
+between the two models.
 
 $H_{0}$: There is no significant difference between the full and reduced model. More specifically, the full model and the reduced model fit the data equally well.
 
-$H_{1}$: There is a significant difference between the full and reduced model. More specifically, the full model fits the data significantly better than the reduced model.
+$H_{1}$: There is a significant difference between the full and reduced model. More specifically, the full model fits the data significantly better than the
+reduced model.
 
 ```{r echo=FALSE}
 lrtest(model_full, model_reduced)
 ```
 
-Table 4 suggests that we should fail to reject $H_{0}$ (p = 0.4673). This indicates that the reduced model should be selected as there's no significant difference between the models and the complexity of the full model does not improve the fit.
+Table 4 suggests that we should fail to reject $H_{0}$ (p = 0.4673). This indicates that the reduced model should be selected as there's no significant difference
+between the models and the complexity of the full model does not improve the fit.
 
 ### C. Model Validation
 
-For cross-validation purposes, Rajendra & Latifi (2021) suggested a 70:30 split between the training and testing set, respectively. These splits helped determined the effectiveness and reproducibility of both model's predictive ability.
+For cross-validation purposes, Rajendra & Latifi (2021) suggested a 70:30 split between the training and testing set, respectively. These splits helped determined
+the effectiveness and reproducibility of both model's predictive ability.
 
 ```{r echo = FALSE, eval = TRUE, results = 'hide'}
 train <- diabetes[1:538,]
@@ -285,131 +347,17 @@ ggroc(rocobj2, color = 'blue', size = 1) +
   ggtitle(paste0('ROC Curve', '(AUC = ', auc2, ')')) + theme_minimal()
 ```
 
-Figures 7 and 8 both have similar AUC values, and this result is consistent with the conclusion yielded from the Likelihood-Ratio Test. In other words, the reduced model predicts just as well as the full model and it should be used since it has less complexity.
+Figures 7 and 8 both have similar AUC values, and this result is consistent with the conclusion yielded from the Likelihood-Ratio Test. In other words, the
+reduced model predicts just as well as the full model and it should be used since it has less complexity.
 
-For example, a women that has had 2 pregnancies, glucose level of 85 mg/dL, insulin of 15 mu U/ml, BMI of 26.5, and Diabetes Pedigree Function of 0.25 would have a probability of getting Type 2 Diabetes of approximately 4.6%. It should be noted, however, that glucose (r = 0.846) and BMI (r = 0.578) have the most impact on the probability of an individual getting Type 2 Diabetes. For an unhealthy individual, however, that has had 2 pregnancies, glucose level of 180 mg/dL, insulin of 15 mu U/ml, BMI of 33, and Diabetes Pedigree Function of 0.25 would have a probability of getting Type 2 Diabetes of approximately 74%. Notice how the only differences between the two examples were the glucose and BMI values, further suggesting that they have a strong connection to the prevalence of Type 2 Diabetes. Note: the definition of a "healthy" and "unhealthy" individual is being ill-defined here - these examples are mainly just for demonstration purposes only.
+For example, a women that has had 2 pregnancies, glucose level of 85 mg/dL, insulin of 15 mu U/ml, BMI of 26.5, and Diabetes Pedigree Function of 0.25 would have
+a probability of getting Type 2 Diabetes of approximately 4.6%. It should be noted, however, that glucose (r = 0.846) and BMI (r = 0.578) have the most impact on
+the probability of an individual getting Type 2 Diabetes. For an unhealthy individual, however, that has had 2 pregnancies, glucose level of 180 mg/dL, insulin of
+15 mu U/ml, BMI of 33, and Diabetes Pedigree Function of 0.25 would have a probability of getting Type 2 Diabetes of approximately 74%. Notice how the only
+differences between the two examples were the glucose and BMI values, further suggesting that they have a strong connection to the prevalence of Type 2 Diabetes.
+Note: the definition of a "healthy" and "unhealthy" individual is being ill-defined here - these examples are mainly just for demonstration purposes only.
 
 ```{r echo = FALSE, message = FALSE}
-predict(model_reduced_train, data.frame(Pregnancies=2, Glucose=85,
-                                  Insulin=15, BMI=26.5,
-                                  DiabetesPedigreeFunction=0.25),
-        type="response")
-
-predict(model_reduced_train, data.frame(Pregnancies=2, Glucose=180,
-                                  Insulin=15, BMI=33,
-                                  DiabetesPedigreeFunction=0.25),
-        type="response")
-```
-
-### D. Full R Code
-
-```{r eval = FALSE}
-library(readr)
-library(car)
-library(MASS)
-library(leaps)
-library(bestglm)
-library(tidyverse)
-library(lmtest)
-library(pROC)
-library(ggplot2)
-library(caret)
-library(dplyr)
-
-diabetes <- read_csv("C:/Users/steph/Downloads/diabetes.csv")
-
-# Replace the missing values (i.e. data points equal to 0 with the median)
-diabetes['Glucose'][diabetes['Glucose'] == 0] <- 117
-diabetes['BloodPressure'][diabetes['BloodPressure'] == 0] <- 72
-diabetes['SkinThickness'][diabetes['SkinThickness'] == 0] <- 23
-diabetes['Insulin'][diabetes['Insulin'] == 0] <- 30.5
-diabetes['BMI'][diabetes['BMI'] == 0] <- 32
-diabetes$Outcome <- as.factor(diabetes$Outcome)
-
-model_full <- glm(Outcome ~ ., family=binomial(link=logit), data=diabetes) 
-summary(model_full)
-
-vif(model_full)
-
-cooks_distance <- cooks.distance(model_full)
-
-n <- nrow(diabetes)
-p <- plot(cooks_distance, pch="*", main = "Cooks Distance for Influential Observations",
-          ylab = "Cook's Distance", xlab = "Observations")
-abline(h = 4/n, lty = 2, col = "blue") # add cutoff line
-
-text(x=1:length(cooks_distance)+1, y=cooks_distance, 
-     labels=ifelse(cooks_distance>4/n, 
-                   names(cooks_distance),""), col="blue") 
-
-logodds <- model_full$linear.predictors
-plot(logodds ~ diabetes$Glucose, 
-     main = "Log Odds of Outcome vs Glucose",
-     ylab = "Log Odds", xlab = "Glucose")
-
-plot(logodds ~ diabetes$Insulin, 
-     main = "Log Odds of Outcome vs Insulin",
-     ylab = "Log Odds", xlab = "Insulin")
-
-plot(model_full$fitted.values, residuals(model_full),
-     main = "Fitted vs Residuals", xlab = "Fitted",
-     ylab = "Residuals")
-
-model_reduced <- glm(Outcome ~ Pregnancies + Glucose + 
-                    Insulin + BMI + DiabetesPedigreeFunction,
-                  data = diabetes, family = binomial)
-summary(model_reduced)
-
-vif(model_reduced)
-
-cooks_distance2 <- cooks.distance(model_reduced)
-
-n2 <- nrow(diabetes)
-p2 <- plot(cooks_distance2, pch="*", main = "Cooks Distance for Influential Observations",
-           ylab = "Cook's Distance", xlab = "Observations")
-abline(h = 4/n, lty = 2, col = "blue") # add cutoff line
-
-text(x=1:length(cooks_distance2)+1, y=cooks_distance2, 
-     labels=ifelse(cooks_distance2>4/n2, 
-                   names(cooks_distance2),""), col="blue") 
-
-plot(model_reduced$fitted.values, residuals(model_reduced),
-     main = "Fitted vs Residuals", xlab = "Fitted",
-     ylab = "Residuals")
-
-stepAIC(model_full, direction = "backward") # stepwise backward selection using AIC
-
-lrtest(model_full, model_reduced)
-
-train <- diabetes[1:538,]
-test <- diabetes[539:768,]
-
-model_reduced_train <- glm(Outcome ~ Pregnancies + Glucose + 
-                    Insulin + BMI + DiabetesPedigreeFunction,
-                  data = train, family = binomial); AIC(model_reduced_train)
-
-model_full_train <- glm(Outcome ~ ., data = train, family = binomial); AIC(model_full_train)
-
-predicted <- predict(model_reduced_train, test, type="response")
-
-#define object to plot and calculate AUC
-rocobj <- roc(test$Outcome, predicted)
-auc <- round(auc(test$Outcome, predicted),4)
-
-#create ROC plot
-ggroc(rocobj, color = 'blue', size = 1) + 
-  ggtitle(paste0('ROC Curve', '(AUC = ', auc, ')')) + theme_minimal()
-
-predicted2 <- predict(model_full_train, test, type="response")
-
-#define object to plot and calculate AUC
-rocobj2 <- roc(test$Outcome, predicted2)
-auc2 <- round(auc(test$Outcome, predicted2),4)
-
-#create ROC plot
-ggroc(rocobj2, color = 'blue', size = 1) + 
-  ggtitle(paste0('ROC Curve', '(AUC = ', auc2, ')')) + theme_minimal()
-
 predict(model_reduced_train, data.frame(Pregnancies=2, Glucose=85,
                                   Insulin=15, BMI=26.5,
                                   DiabetesPedigreeFunction=0.25),
