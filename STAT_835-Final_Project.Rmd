@@ -172,7 +172,8 @@ This assumption has been met as the response variable only has two possible outc
 vif(model_full)
 ```
 
-Based on the rule of thumb of VIF = 5, Table 1 suggests that multicollinearity does not exist, so other remedial measures such as a Principal Component Analysis (PCA) are not necessary.
+Based on the rule of thumb of VIF = 5, Table 1 suggests that multicollinearity does not exist, so other remedial measures such as a Principal Component Analysis
+(PCA) are not necessary.
 
 #### Assumption 3: No Substantial Outliers
 
@@ -207,7 +208,8 @@ plot(logodds ~ diabetes$Insulin,
      ylab = "Log Odds", xlab = "Insulin")
 ```
 
-Figure 2 shows a linear relationship between the log odds of the response variable and glucose. Figure 3 is worth pointing out as there's a vertical line that all have the same value for glucose. This is due to replacing the missing values with the median.
+Figure 2 shows a linear relationship between the log odds of the response variable and glucose. Figure 3 is worth pointing out as there's a vertical line that all
+have the same value for glucose. This is due to replacing the missing values with the median.
 
 #### Assumption 5: Sample Size is Sufficiently Large
 
@@ -221,7 +223,8 @@ plot(model_full$fitted.values, residuals(model_full),
      ylab = "Residuals")
 ```
 
-Figure 4 shows that the observations are independent of each other. The two separate lines are to be expected given that the bottom represents negative for Type 2 Diabetes (i.e. 0) and the top is positive (i.e. 1).
+Figure 4 shows that the observations are independent of each other. The two separate lines are to be expected given that the bottom represents negative for Type 2
+Diabetes (i.e. 0) and the top is positive (i.e. 1).
 
 ### Reduced Model Assumptions
 
@@ -290,21 +293,26 @@ Figure 6 shows that the assumption of independent observations has been met.
 stepAIC(model_full, direction = "backward") # stepwise backward selection using AIC
 ```
 
-Table 3 suggests that the model containing pregnancies, glucose, insulin, BMI, Diabetes Pedigree Function should be used based on its AIC value of 725.43. Given that this AIC value is similar to the full model's (AIC = 728.88), a Likelihood-Ratio Test was conducted to investigate whether there is a statistical differnce between the two models.
+Table 3 suggests that the model containing pregnancies, glucose, insulin, BMI, Diabetes Pedigree Function should be used based on its AIC value of 725.43. Given
+that this AIC value is similar to the full model's (AIC = 728.88), a Likelihood-Ratio Test was conducted to investigate whether there is a statistical differnce
+between the two models.
 
 $H_{0}$: There is no significant difference between the full and reduced model. More specifically, the full model and the reduced model fit the data equally well.
 
-$H_{1}$: There is a significant difference between the full and reduced model. More specifically, the full model fits the data significantly better than the reduced model.
+$H_{1}$: There is a significant difference between the full and reduced model. More specifically, the full model fits the data significantly better than the
+reduced model.
 
 ```{r echo=FALSE}
 lrtest(model_full, model_reduced)
 ```
 
-Table 4 suggests that we should fail to reject $H_{0}$ (p = 0.4673). This indicates that the reduced model should be selected as there's no significant difference between the models and the complexity of the full model does not improve the fit.
+Table 4 suggests that we should fail to reject $H_{0}$ (p = 0.4673). This indicates that the reduced model should be selected as there's no significant difference
+between the models and the complexity of the full model does not improve the fit.
 
 ### C. Model Validation
 
-For cross-validation purposes, Rajendra & Latifi (2021) suggested a 70:30 split between the training and testing set, respectively. These splits helped determined the effectiveness and reproducibility of both model's predictive ability.
+For cross-validation purposes, Rajendra & Latifi (2021) suggested a 70:30 split between the training and testing set, respectively. These splits helped determined
+the effectiveness and reproducibility of both model's predictive ability.
 
 ```{r echo = FALSE, eval = TRUE, results = 'hide'}
 train <- diabetes[1:538,]
@@ -339,9 +347,15 @@ ggroc(rocobj2, color = 'blue', size = 1) +
   ggtitle(paste0('ROC Curve', '(AUC = ', auc2, ')')) + theme_minimal()
 ```
 
-Figures 7 and 8 both have similar AUC values, and this result is consistent with the conclusion yielded from the Likelihood-Ratio Test. In other words, the reduced model predicts just as well as the full model and it should be used since it has less complexity.
+Figures 7 and 8 both have similar AUC values, and this result is consistent with the conclusion yielded from the Likelihood-Ratio Test. In other words, the
+reduced model predicts just as well as the full model and it should be used since it has less complexity.
 
-For example, a women that has had 2 pregnancies, glucose level of 85 mg/dL, insulin of 15 mu U/ml, BMI of 26.5, and Diabetes Pedigree Function of 0.25 would have a probability of getting Type 2 Diabetes of approximately 4.6%. It should be noted, however, that glucose (r = 0.846) and BMI (r = 0.578) have the most impact on the probability of an individual getting Type 2 Diabetes. For an unhealthy individual, however, that has had 2 pregnancies, glucose level of 180 mg/dL, insulin of 15 mu U/ml, BMI of 33, and Diabetes Pedigree Function of 0.25 would have a probability of getting Type 2 Diabetes of approximately 74%. Notice how the only differences between the two examples were the glucose and BMI values, further suggesting that they have a strong connection to the prevalence of Type 2 Diabetes. Note: the definition of a "healthy" and "unhealthy" individual is being ill-defined here - these examples are mainly just for demonstration purposes only.
+For example, a women that has had 2 pregnancies, glucose level of 85 mg/dL, insulin of 15 mu U/ml, BMI of 26.5, and Diabetes Pedigree Function of 0.25 would have
+a probability of getting Type 2 Diabetes of approximately 4.6%. It should be noted, however, that glucose (r = 0.846) and BMI (r = 0.578) have the most impact on
+the probability of an individual getting Type 2 Diabetes. For an unhealthy individual, however, that has had 2 pregnancies, glucose level of 180 mg/dL, insulin of
+15 mu U/ml, BMI of 33, and Diabetes Pedigree Function of 0.25 would have a probability of getting Type 2 Diabetes of approximately 74%. Notice how the only
+differences between the two examples were the glucose and BMI values, further suggesting that they have a strong connection to the prevalence of Type 2 Diabetes.
+Note: the definition of a "healthy" and "unhealthy" individual is being ill-defined here - these examples are mainly just for demonstration purposes only.
 
 ```{r echo = FALSE, message = FALSE}
 predict(model_reduced_train, data.frame(Pregnancies=2, Glucose=85,
