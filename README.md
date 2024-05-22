@@ -24,7 +24,7 @@ Diabetes.
 The project was completed in RMarkdown, so there are both code chunks and written work. 
 For those who are interested in replicating or making improvements to my work, I have a 
 separate file that only includes the R code. Additionally, the data set used has
-also been included as a csv file. 
+also been included as a .csv file. 
 
 Data was obtained from the National Institute of Diabetes and Digestive and
 Kidney Diseases through the cooperation of women (ages 21 and above) of the Pima
